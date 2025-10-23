@@ -9,9 +9,7 @@ from google.genai.errors import ServerError
 GENRES = ["blues", "classical", "country", "disco", "hiphop",
           "jazz", "metal", "pop", "reggae", "rock"]
 
-# os.environ["GEMINI_API_KEY"] = "AIzaSyB2QlkCEYrkM7270G3Iw3i8re3mt69BoBw"
-
-os.environ["GEMINI_API_KEY"] = "AIzaSyBQwR8zcbYmhPvulYfmEp6b_zbLPn_Bz7Q"
+os.environ["GEMINI_API_KEY"] = "YOUR_API_KEY"
 
 # ====== 初始化 Gemini 客户端 ======
 client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
