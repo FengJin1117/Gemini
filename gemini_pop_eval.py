@@ -7,7 +7,7 @@ from google.genai.errors import ServerError
 import random
 
 # ====== 配置 ======
-os.environ["GEMINI_API_KEY"] = "AIzaSyBQwR8zcbYmhPvulYfmEp6b_zbLPn_Bz7Q"  # 改成你的 API Key
+os.environ["GEMINI_API_KEY"] = "YOUR_API_KEY"
 
 # MODEL_NAME = "gemini-2.5-flash"  # 可自定义模型
 MODEL_NAME = "gemini-2.5-pro"  # 可自定义模型
