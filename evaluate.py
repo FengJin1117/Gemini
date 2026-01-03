@@ -3,7 +3,7 @@
 import os
 import json
 from tqdm import tqdm
-from task import classify_genre_task, run_audio_task
+from task import run_audio_task
 
 
 def load_existing_results(jsonl_path: str) -> dict:
@@ -88,6 +88,7 @@ def evaluate_style_score_folder(
     model_name: str,
     prompt: str,
     output_jsonl: str,
+    backend: str = "gemini",
 ) -> float:
     """
     Evaluate vocal-style score for all wav files in a folder.
@@ -117,6 +118,7 @@ def evaluate_style_score_folder(
     new_scores = []
     for key, wav_path in tqdm(tasks, desc="Scoring"):
         res = run_audio_task(
+            backend=backend,
             client=client,
             model_name=model_name,
             prompt=prompt,
@@ -146,7 +148,7 @@ def evaluate_style_score_folder(
 
     print(
         f"\nTotal files: {len(all_scores)}, "
-        f"Mean vocal-style score: {mean_score:.2f}"
+        f"Mean vocal-style score: {mean_score:.1f}"
     )
 
     return mean_score
