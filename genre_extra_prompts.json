@@ -1,0 +1,21 @@
+{
+    "pop": "Pop vocals are typically clean, controlled, and emotionally expressive, with stable pitch, smooth tone, and clear pronunciation.",
+  
+    "rock": "The target rock style mainly refers to punk rock and alternative rock. Vocals may sound aggressive, strained, raspy, noisy, or intentionally distorted. Such characteristics are typical and should be considered positively when scoring.",
+  
+    "blues": "Blues vocals are expressive and emotive, often featuring a raw tone, subtle pitch bends, slides, and a strong sense of personal feeling.",
+  
+    "classical": "Classical vocals emphasize precise pitch control, clear vowel shaping, rich resonance, and a refined, trained singing technique.",
+  
+    "country": "Country vocals are typically natural and narrative-driven, with clear diction, moderate nasal tone, and an intimate, storytelling style.",
+  
+    "electronic": "Electronic-style vocals are often stylized, processed, or rhythm-focused, with a synthetic or detached character rather than natural expressiveness.",
+  
+    "jazz": "Jazz vocals often feature flexible timing, expressive phrasing, subtle pitch variations, and a relaxed, warm vocal tone.",
+  
+    "rap": "Rap vocals focus on rhythmic delivery, speech-like articulation, flow, and timing, with minimal melodic singing.",
+  
+    "rnb": "R&B vocals emphasize smooth phrasing, rich timbre, emotional nuance, and frequent use of vocal runs and dynamic control.",
+  
+    "world": "World music vocals reflect diverse traditional styles, often featuring distinctive timbres, ornamentation, and culturally specific vocal techniques."
+}
