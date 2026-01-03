@@ -39,9 +39,16 @@ def build_genre_prompt() -> str:
     )
     return prompt
 
-def build_vocal_style_prompt(genre: str = "rock") -> str:
+def build_vocal_style_prompt(
+    genre: str = "rock",
+    extra_genre_prompt: str | None = None,
+) -> str:
     genre = genre.lower()
     genre_upper = genre.upper()
+
+    extra_block = ""
+    if extra_genre_prompt:
+        extra_block = extra_genre_prompt.strip() + "\n\n"
 
     return (
         "You are an expert in music genre analysis, specializing in vocal style.\n\n"
@@ -52,6 +59,7 @@ def build_vocal_style_prompt(genre: str = "rock") -> str:
         "- singing intensity and energy\n"
         "- articulation and expression\n"
         f"- stylistic traits typical of {genre} vocals\n\n"
+        f"{extra_block}"
         "Task:\n"
         f"Rate how well this vocal performance matches the {genre_upper} vocal style.\n\n"
         "Scoring rules:\n"
@@ -60,6 +68,9 @@ def build_vocal_style_prompt(genre: str = "rock") -> str:
         "3: Moderately matching\n"
         "4: Clearly matching\n"
         "5: Strongly and prototypically matching\n\n"
+        "Note:\n"
+        "When the vocal characteristics are highly typical of the target genre, "
+        "do not hesitate to assign a higher score.\n\n"
         "Output ONLY a single integer from 1 to 5.\n"
         "Do not include explanations or extra text."
     )

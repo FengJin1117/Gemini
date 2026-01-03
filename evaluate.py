@@ -72,6 +72,16 @@ def evaluate_folder(
 
     return acc
 
+'''
+jsonl 数据格式（隐含约定）
+
+为了保证上面代码工作正常，run_audio_task 写入的 jsonl 行应至少包含：
+
+{
+  "key": "rock_alternative-rock_suno_000_07",
+  "score": 4
+}
+'''
 def evaluate_style_score_folder(
     wav_dir: str,
     client,
@@ -81,19 +91,31 @@ def evaluate_style_score_folder(
 ) -> float:
     """
     Evaluate vocal-style score for all wav files in a folder.
+    Supports resume from existing jsonl results.
 
     Returns:
         mean_score (float)
     """
 
-    scores = []
+    # 1. 读取已有结果（断点存续）
+    existing_results = load_existing_results(output_jsonl)
 
-    for fname in tqdm(sorted(os.listdir(wav_dir)), desc="Scoring"):
+    # 2. 构建待评测任务
+    tasks = []
+    for fname in sorted(os.listdir(wav_dir)):
         if not fname.endswith((".wav", ".mp3")):
             continue
 
-        wav_path = os.path.join(wav_dir, fname)
+        key = os.path.splitext(fname)[0]
+        if key in existing_results:
+            continue
 
+        wav_path = os.path.join(wav_dir, fname)
+        tasks.append((key, wav_path))
+
+    # 3. 执行新的评测
+    new_scores = []
+    for key, wav_path in tqdm(tasks, desc="Scoring"):
         res = run_audio_task(
             client=client,
             model_name=model_name,
@@ -105,16 +127,26 @@ def evaluate_style_score_folder(
 
         score = res.get("score", -1)
         if score > 0:
-            scores.append(score)
+            new_scores.append(score)
 
-    if len(scores) == 0:
+    # 4. 统计所有（已有 + 新算）的 score
+    all_scores = []
+
+    for r in existing_results.values():
+        s = r.get("score", -1)
+        if isinstance(s, (int, float)) and s > 0:
+            all_scores.append(s)
+
+    all_scores.extend(new_scores)
+
+    if len(all_scores) == 0:
         mean_score = 0.0
     else:
-        mean_score = sum(scores) / len(scores)
+        mean_score = sum(all_scores) / len(all_scores)
 
     print(
-        f"\nTotal files: {len(scores)}, "
-        f"Mean vocal-style score: {mean_score:.3f}"
+        f"\nTotal files: {len(all_scores)}, "
+        f"Mean vocal-style score: {mean_score:.2f}"
     )
 
     return mean_score
