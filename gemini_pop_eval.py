@@ -9,8 +9,8 @@ import random
 # ====== 配置 ======
 os.environ["GEMINI_API_KEY"] = "AIzaSyBQwR8zcbYmhPvulYfmEp6b_zbLPn_Bz7Q"  # 改成你的 API Key
 
-MODEL_NAME = "gemini-2.5-flash"  # 可自定义模型
-# MODEL_NAME = "gemini-2.5-pro"  # 可自定义模型
+# MODEL_NAME = "gemini-2.5-flash"  # 可自定义模型
+MODEL_NAME = "gemini-2.5-pro"  # 可自定义模型
 
 GENRES = [
     "Schlager",
@@ -113,7 +113,7 @@ def evaluate_from_jsonl(pop_jsonl, audio_folder, output_jsonl="gemini_prediction
             print(f"⚠️ Missing file: {audio_path}")
             continue
 
-        res = classify_genre_task(audio_path, genre_id, output_jsonl, wait_sec=30)
+        res = classify_genre_task(audio_path, genre_id, output_jsonl, wait_sec=45)
 
         if res["pred"] == str(genre_id):
             correct += 1
